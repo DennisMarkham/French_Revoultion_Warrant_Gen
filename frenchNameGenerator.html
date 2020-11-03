@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Target Generator</title>
+	
+	<style>
+div{
+	margin: 5px;
+	font-family: Vladimir Script;
+	font-size: 2em;
+	font-style: bold;
+/*	background-image: none;*/
+	/*background-image: url("https://pm-site-assets-py4.s3.us-east-2.amazonaws.com/products/legacy/_1200x630_crop_center-center_82_none/aged_65_sq1_250.jpg?mtime=1586979606");*/
+	padding: 20px;
+	
+	height: 700px;
+	width: 400px;
+}
+</style>
+</head>
+<body>
+	
+<button onclick = "create();">Create </button>
+<br>
+<br>
+<div id = "message"> </span>
+<script>
+	var female = ["Marie", "Delphine", "Lynette", "Emilie", "Elisabeth", "Jeanne"];
+	var male = ["Pierre", "Jacques", "Paul", "Didier", "Denis", "Simon", "Claude", "Timothee"]
+	var surname = ["Chobat", "de le Liore", "Caron", "Boucher", "de la Caen", "Fabron", "Beamount", "de Linville", "Deschamps", "Dupont", "de Guyenne", "de Kersaint", "Brissont", "de le Yonne", "de le Havre", "de Pau", "de le Tarn", "Dumas", "Jospin"]
+
+	var districts = ["Le Marias", "Ventre de Paris", "Le Louvre", "Les Invalides"]
+	function create()
+	{
+		//supposed to ensure background only appears when create message.  Not sure why it doesn't work
+		document.getElementById("message").style.backgroundImage = "url: ('https://pm-site-assets-py4.s3.us-east-2.amazonaws.com/products/legacy/_1200x630_crop_center-center_82_none/aged_65_sq1_250.jpg?mtime=1586979606')"	
+
+		//allows gender to be randomized, with still roughly 80% chance of being male
+		var genderScore = Math.floor(Math.random() * 5);
+
+		//allows class to be randomized, with still roughly 80% chance of being noble
+		var classScore = Math.floor(Math.random() * 5);
+
+		var last = Math.floor(Math.random() * (surname.length - 1));
+		var district = Math.floor(Math.random() * (districts.length - 1));
+
+		function makeName(sex)
+		{
+			var first = Math.floor(Math.random() * (sex.length - 1));
+		    var middle = Math.floor(Math.random() * (sex.length - 1));
+
+		    //this is an attempt to prevent repeated first names.  Will it work?  Nope, didn't work	
+		    if (first == middle)
+		    {
+		    	makeName(sex);
+		    }
+		    else
+		    {
+			document.getElementById("message").innerHTML = sex[first] + "-" + sex[middle] + " " + surname[last] + ", " + "<br>" + districts[district];
+		}
+		}
+
+		// if (genderScore == 0)
+		// {
+		// 	makeName(female);
+		// }
+		// else
+		// {
+		// 	makeName(male);
+		// }
+
+		(genderScore == 0) ? makeName(female) : makeName(male);
+
+		// if (classScore == 0)
+		// {
+		// 	console.log("middle class");
+		// }
+		// else
+		// {
+		// 	console.log("noble");
+		// }
+
+		(classScore == 0) ? console.log("middle class") : console.log("upper class");
+	}
+	</script>
+	</body>
+	</html>
